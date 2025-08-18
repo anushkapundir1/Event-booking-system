@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('events.urls')),
+    path('', include('events.urls'))
+    path('accounts/', include('django.contrib.auth.urls')),  # For login/logout,password reset functionality
 ]
 
 if settings.DEBUG:
