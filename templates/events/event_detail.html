@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>{{ event.title }}</h2>
+<p>{{ event.description }}</p>
+<p><b>Venue:</b> {{ event.venue }}</p>
+<p><b>Date:</b> {{ event.date_time }}</p>
+<p><b>Capacity:</b> {{ event.capacity }}</p>
+<p><b>Price:</b> ₹{{ event.price }}</p>
+
+{% if event.image %}
+  <img src="{{ event.image.url }}" width="300">
+{% endif %}
+
+{% if user == event.created_by %}
+  <a href="{% url 'event_update' event.pk %}">Edit</a> |
+  <a href="{% url 'event_delete' event.pk %}">Delete</a>
+{% endif %}
+
+</body>
+</html>
