@@ -22,5 +22,14 @@
   <a href="{% url 'event_delete' event.pk %}">Delete</a>
 {% endif %}
 
+{% if user.is_authenticated %}
+  <form action="{% url 'book_event' event.pk %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Book Now</button>
+  </form>
+{% else %}
+  <p><a href="{% url 'login' %}?next={% url 'event_detail' event.pk %}">Login</a> to book this event.</p>
+{% endif %}
+
 </body>
 </html>

@@ -10,11 +10,23 @@ class UserProfile(models.Model): # User profile model to extend User functionali
 
     def __str__(self):
         return self.user.username
+    
 class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    
+    CATEGORY_CHOICES = [
+    ('entertainment', 'Entertainment'),
+    ('professional', 'Professional'),
+    ('education', 'Education'),
+    ('lifestyle', 'Lifestyle & Social'),
+    ('sports', 'Sports & Fitness'),
+    ('community', 'Community'),
+    ('other', 'Other'),
+]
+
+    name = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='other')
 
     def __str__(self):
-        return self.name
+        return self.get_name_display()
 
 
 class Event(models.Model):
@@ -30,3 +42,13 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title    
+    
+class Booking(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    seats = models.PositiveIntegerField(default=1)
+    booked_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} booked {self.seats} for {self.event.title}"
+
