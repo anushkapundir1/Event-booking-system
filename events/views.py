@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login,logout
 from .forms import UserRegistrationForm, UserProfileForm, EventForm, BookingForm
 from .models import Event, Category, UserProfile, Booking
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum   # ✅ Correct import
+from django.db.models import Sum   #  Correct import
 
 # Home Page
 def home(request):
-    return render(request, 'events/home.html')
+    return render(request, 'events/home.html') 
 
 
 # User Registration
@@ -128,3 +128,8 @@ def book_event(request, pk):
 def my_bookings(request):
     bookings = Booking.objects.filter(user=request.user)
     return render(request, 'events/my_bookings.html', {'bookings': bookings})
+
+def custom_logout(request):
+    logout(request)
+    messages.success(request, "You have been logged out successfully.")
+    return redirect('home')

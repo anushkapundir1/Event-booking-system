@@ -1,20 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
-</head>
-<body>
-    <h2> Register </h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{user_form.as_p}}  
-        {{profile_form.as_p}}
-        <button type="submit"> Sign Up</button>
-    </form>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
 
-    <p>
-        Already have an account? <a href="{%url 'login'%}">Login Here</p>
-</body>
-</html>
+{% block title %}Register | Event Booker{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-5">
+                <h2 class="text-center mb-4">✨ Create Your Account</h2>
+                <p class="text-center text-muted mb-4">
+                    Join Event Booker today and never miss out on amazing events 🎉
+                </p>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <!-- User form (username, email, password etc.) -->
+                    {{ user_form|crispy }}
+
+                    <!-- Profile form (extra fields like profile picture, bio etc.) -->
+                    {{ profile_form|crispy }}
+
+                    <!-- Non-field errors -->
+                    {% if user_form.non_field_errors %}
+                        <div class="alert alert-danger mt-2">
+                            {{ user_form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    {% if profile_form.non_field_errors %}
+                        <div class="alert alert-danger mt-2">
+                            {{ profile_form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <button type="submit" class="btn btn-primary w-100 mt-3">
+                        Register
+                    </button>
+                </form>
+
+                <div class="text-center mt-4">
+                    <small class="text-muted">
+                        Already have an account?
+                        <a href="{% url 'login' %}">Login here</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

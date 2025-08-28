@@ -1,11 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Booking</title>
-</head>
-<body>
-    <h1> Welcome to Event Booking</h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center my-5">
+    <!-- Hero Section -->
+    <h1 class="display-4 fw-bold">Welcome to Event Booker 🎉</h1>
+    <p class="lead">Discover, book, and enjoy events near you with just a few clicks.</p>
+    <a href="{% url 'event_list' %}" class="btn btn-primary btn-lg mt-3">Browse Events</a>
+</div>
+
+<!-- About Section -->
+<div class="container my-5">
+    <h2 class="text-center">About Event Booker</h2>
+    <p class="text-muted text-center">
+        Event Booker is your one-stop solution to explore and book tickets for events.
+        Whether it’s concerts, workshops, or sports matches — we’ve got you covered.
+    </p>
+</div>
+
+<!-- Categories Section -->
+<div class="container my-5">
+    <h2 class="text-center mb-4">Event Categories</h2>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm p-3">
+                <h5>🎭 Entertainment</h5>
+                <p>Concerts, shows, and more fun events.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm p-3">
+                <h5>📚 Education</h5>
+                <p>Workshops, seminars, and skill building.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm p-3">
+                <h5>⚽ Sports</h5>
+                <p>Fitness, games, and tournaments.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="container text-center my-5">
+    <h2>Ready to Book Your Next Event?</h2>
+    <a href="{% url 'event_list' %}" class="btn btn-success btn-lg">View Events</a>
+</div>
+{% endblock %}

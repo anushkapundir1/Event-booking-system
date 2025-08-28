@@ -6,7 +6,7 @@ from .models import UserProfile
 
 
 
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=User)  # Signal to create UserProfile after User is created
 def create_user_profile(sender, instance, created, **kwargs):
     if created:    # Check if the user is newly created
         UserProfile.objects.create(user=instance)   # Create a UserProfile instance for the new user

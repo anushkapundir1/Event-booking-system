@@ -11,4 +11,5 @@ urlpatterns = [
     path('events/<int:pk>/delete/', views.event_delete, name='event_delete'),
     path('events/<int:pk>/book/', views.book_event, name='book_event'),
     path('my-bookings/', views.my_bookings, name='my_bookings'),
+    path('logout/', views.custom_logout, name='logout'),
 ]

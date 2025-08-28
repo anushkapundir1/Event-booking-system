@@ -1,39 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events</title>
-</head>
-<body>
-    <h1>All Events</h1>
+{% extends "base.html" %}
+{% block title %}Events{% endblock %}
+{% block content %}
+<h2 class="mb-4">Upcoming Events</h2>
 
-    <!-- Category Filter -->
-    <h3>Filter by Category</h3>
-    <ul>
-        <li><a href="{% url 'event_list' %}">All</a></li>
-        {% for category in categories %}
-            <li>
-                <a href="?category={{ category.name }}" 
-                   {% if selected_category == category.name %} style="font-weight:bold;" {% endif %}>
-                   {{ category.get_name_display }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-
-    <hr>
-
-    <!-- Events List -->
+<div class="row">
     {% for event in events %}
-        <h2><a href="{% url 'event_detail' event.pk %}">{{ event.title }}</a></h2>
-        <p>{{ event.description|truncatewords:20 }}</p>
-        <p><b>Venue:</b> {{ event.venue }}</p>
-        <p><b>Date:</b> {{ event.date_time }}</p>
-        <p><b>Category:</b> {{ event.category.get_name_display }}</p>
-        <hr>
+        <div class="col-md-4 mb-4">
+            <div class="card event-card">
+                {% if event.image %}
+                    <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.title }}</h5>
+                    <p class="card-text">{{ event.description|truncatewords:20 }}</p>
+                    <p><b>📍 Venue:</b> {{ event.venue }}</p>
+                    <a href="{% url 'event_detail' event.pk %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
     {% empty %}
-        <p>No events found in this category.</p>
+        <p>No events available.</p>
     {% endfor %}
-</body>
-</html>
+</div>
+{% endblock %}
